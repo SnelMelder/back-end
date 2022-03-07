@@ -1,5 +1,5 @@
 import {
-  Router, Request, Response, NextFunction,
+  NextFunction, Request, Response, Router,
 } from 'express';
 import Controller from '../interfaces/controller.interface';
 import userModel from '../models/user';
@@ -26,7 +26,8 @@ class UserController implements Controller {
     const userQuery = this.user.findById(id);
     const user = await userQuery;
     if (user) {
-      response.send(user);
+      response.status(200)
+        .json(user);
     } else {
       next(`User with ${id} not found`);
     }
@@ -39,7 +40,7 @@ class UserController implements Controller {
         const newUser = await this.user.create(user);
         console.log(newUser);
         await newUser.save();
-        return response.status(200)
+        response.status(200)
           .json(newUser);
       } catch (err) {
         next('Creation of new user failed.');

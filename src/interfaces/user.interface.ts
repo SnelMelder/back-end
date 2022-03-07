@@ -1,4 +1,6 @@
-export default interface UserInterface {
+interface UserInterface {
   name: string,
   role: string,
-};
+}
+
+export default UserInterface;
