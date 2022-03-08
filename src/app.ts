@@ -1,13 +1,56 @@
-import express from 'express';
-import dotenv from 'dotenv';
+import * as express from 'express';
+import { connect } from 'mongoose';
 
-dotenv.config();
+import helmet from 'helmet';
+import Controller from './interfaces/controller.interface';
+import errorMiddleware from './middlewares/error.middleware';
 
-const app = express();
-const port = process.env.PORT || 3000;
+const cors = require('cors');
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+class App {
+  public app: express.Application;
 
-app.listen(port, () => console.log(`Express is listening at http://localhost:${port}`));
+  constructor(controllers: Controller[]) {
+    this.app = express();
+    App.connectDatabase()
+      .then(() => console.log('Database connected'))
+      .catch((err) => console.log(err));
+    this.initializeMiddlewares();
+    this.initializeControllers(controllers);
+    this.initializeErrorHandling();
+  }
+
+  public listen() {
+    this.app.listen(process.env.PORT || 5000, () => {
+      console.log(`App listening on the port ${process.env.PORT}`);
+    });
+  }
+
+  public getServer() {
+    return this.app;
+  }
+
+  private initializeMiddlewares() {
+    this.app.use(express.json());
+    this.app.use(helmet());
+    this.app.use(cors({
+      origin: ['http://localhost:5000'],
+    }));
+  }
+
+  private initializeControllers(controllers: Controller[]) {
+    controllers.forEach((controller) => {
+      this.app.use('/', controller.router);
+    });
+  }
+
+  private initializeErrorHandling() {
+    this.app.use(errorMiddleware);
+  }
+
+  private static async connectDatabase() {
+    await connect(process.env.MONGODB_CONNECTION_STRING);
+  }
+}
+
+export default App;
