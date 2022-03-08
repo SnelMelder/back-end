@@ -1,6 +1,11 @@
 import * as express from 'express';
 import { connect } from 'mongoose';
+
+import helmet from 'helmet';
 import Controller from './interfaces/controller.interface';
+import errorMiddleware from './middlewares/error.middleware';
+
+const cors = require('cors');
 
 class App {
   public app: express.Application;
@@ -12,6 +17,7 @@ class App {
       .catch((err) => console.log(err));
     this.initializeMiddlewares();
     this.initializeControllers(controllers);
+    this.initializeErrorHandling();
   }
 
   public listen() {
@@ -26,12 +32,20 @@ class App {
 
   private initializeMiddlewares() {
     this.app.use(express.json());
+    this.app.use(helmet());
+    this.app.use(cors({
+      origin: ['http://localhost:5000'],
+    }));
   }
 
   private initializeControllers(controllers: Controller[]) {
     controllers.forEach((controller) => {
       this.app.use('/', controller.router);
     });
+  }
+
+  private initializeErrorHandling() {
+    this.app.use(errorMiddleware);
   }
 
   private static async connectDatabase() {

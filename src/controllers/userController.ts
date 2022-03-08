@@ -1,6 +1,4 @@
-import {
-  NextFunction, Request, Response, Router,
-} from 'express';
+import { NextFunction, Request, Response, Router, } from 'express';
 import Controller from '../interfaces/controller.interface';
 import userModel from '../models/user';
 import UserInterface from '../interfaces/user.interface';
@@ -17,9 +15,19 @@ class UserController implements Controller {
   }
 
   private initializeRoutes() {
+    this.router.get(`${this.path}`, this.getAllUsers);
     this.router.get(`${this.path}/:id`, this.getUserById);
     this.router.post(`${this.path}`, this.createUser);
   }
+
+  private getAllUsers = async (request: Request, response: Response) => {
+    try {
+      return response.status(200)
+        .json(await this.user.find({}));
+    } catch (err) {
+      return response.status(404);
+    }
+  };
 
   private getUserById = async (request: Request, response: Response, next: NextFunction) => {
     const { id } = request.params;
@@ -34,17 +42,20 @@ class UserController implements Controller {
   };
 
   private createUser = async (request: Request, response: Response, next: NextFunction) => {
-    const user: UserInterface = request.body;
-    if (user) {
-      try {
-        const newUser = await this.user.create(user);
-        console.log(newUser);
-        await newUser.save();
-        response.status(200)
-          .json(newUser);
-      } catch (err) {
-        next('Creation of new user failed.');
+    try {
+      const user: UserInterface = request.body;
+      if (user) {
+        try {
+          const newUser = await this.user.create(user);
+          await newUser.save();
+          response.status(200)
+            .json(newUser);
+        } catch (err) {
+          next('Creation of new user failed.');
+        }
       }
+    } catch (err) {
+      next('Wrong Body!');
     }
   };
 }
