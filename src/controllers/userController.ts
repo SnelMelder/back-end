@@ -1,4 +1,6 @@
-import { NextFunction, Request, Response, Router, } from 'express';
+import {
+  NextFunction, Request, Response, Router,
+} from 'express';
 import Controller from '../interfaces/controller.interface';
 import userModel from '../models/user';
 import UserInterface from '../interfaces/user.interface';
