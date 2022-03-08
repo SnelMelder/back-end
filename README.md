@@ -1,7 +1,7 @@
 
 # SnelMelder
 
-This repository contains the node.js (typescript) backend for the SnelMelder app.
+This repository contains the Node.js (TypeScript) backend for the SnelMelder app.
 
 
 ## How to setup the project Locally
