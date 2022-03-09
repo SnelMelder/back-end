@@ -1,6 +1,4 @@
-import {
-  NextFunction, Request, Response, Router,
-} from 'express';
+import { NextFunction, Request, Response, Router, } from 'express';
 import Controller from '../interfaces/controller.interface';
 import userModel from '../models/user';
 import UserInterface from '../interfaces/user.interface';
@@ -27,37 +25,38 @@ class UserController implements Controller {
       return response.status(200)
         .json(await this.user.find({}));
     } catch (err) {
-      return response.status(404);
+      return response.status(404).json('Not found');
     }
   };
 
-  private getUserById = async (request: Request, response: Response, next: NextFunction) => {
+  private getUserById = async (request: Request, response: Response) => {
     const { id } = request.params;
-    const userQuery = this.user.findById(id);
-    const user = await userQuery;
+    const user = await this.user.findById(id);
     if (user) {
       response.status(200)
         .json(user);
     } else {
-      next(`User with ${id} not found`);
+      return response.status(404).json(`User with ${id} not found`);
     }
+    return response.status(404).json('Not found');
   };
 
-  private createUser = async (request: Request, response: Response, next: NextFunction) => {
+  private createUser = async (request: Request, response: Response) => {
     try {
       const user: UserInterface = request.body;
       if (user) {
         try {
           const newUser = await this.user.create(user);
-          await newUser.save();
           response.status(200)
             .json(newUser);
         } catch (err) {
-          next('Creation of new user failed.');
+          response.status(404)
+            .json(err.errors);
         }
       }
     } catch (err) {
-      next('Wrong Body!');
+      response.status(404)
+        .json(err.errors);
     }
   };
 }
