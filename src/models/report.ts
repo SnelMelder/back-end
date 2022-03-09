@@ -21,7 +21,11 @@ const reportSchema = new Schema<ReportInterface>(
     environmentalDamage: { type: String },
     materialDamage: { type: String },
     personInvolved: { type: String },
-    projectLocationId: { type: Schema.Types.ObjectId },
+    projectLocation: {
+      type: Schema.Types.ObjectId,
+      ref: 'Location',
+      required: true,
+    },
     additionalInformation: { type: String },
     witness: { type: String },
     status: {
