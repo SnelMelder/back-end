@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, Router, } from 'express';
+import { Request, Response, Router } from 'express';
 import Controller from '../interfaces/controller.interface';
 import userModel from '../models/user';
 import UserInterface from '../interfaces/user.interface';
@@ -25,7 +25,8 @@ class UserController implements Controller {
       return response.status(200)
         .json(await this.user.find({}));
     } catch (err) {
-      return response.status(404).json('Not found');
+      return response.status(404)
+        .json('Not found');
     }
   };
 
@@ -36,9 +37,11 @@ class UserController implements Controller {
       response.status(200)
         .json(user);
     } else {
-      return response.status(404).json(`User with ${id} not found`);
+      return response.status(404)
+        .json(`User with ${id} not found`);
     }
-    return response.status(404).json('Not found');
+    return response.status(404)
+      .json('Not found');
   };
 
   private createUser = async (request: Request, response: Response) => {
