@@ -1,6 +1,6 @@
 enum ReportStatus {
-  'send',
-  'inProgress',
-  'complete',
+  'send' = 'send',
+  'inProgress' = 'inProgress',
+  'complete' = 'complete',
 }
 export default ReportStatus;

@@ -6,7 +6,8 @@ export default class ReportService {
 
   public getById = async (id: string) => this.report
     .find({ _id: id })
-    .populate('user');
+    .populate('user')
+    .populate('projectLocation');
 
   public getAll = async () => this.report.find();
 
