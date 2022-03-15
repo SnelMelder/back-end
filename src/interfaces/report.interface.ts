@@ -4,7 +4,7 @@ import ReportStatus from '../helpers/enums/reportStatus.enum';
 interface Report {
   _id?: Schema.Types.ObjectId;
   user: Schema.Types.ObjectId;
-  projectLocationId: Schema.Types.ObjectId;
+  projectLocation: Schema.Types.ObjectId;
   dateTime: Date;
   personInvolved?: string;
   witness?: string;

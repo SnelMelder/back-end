@@ -2,16 +2,13 @@ import {
   NextFunction, Request, Response, Router,
 } from 'express';
 import Controller from '../interfaces/controller.interface';
-import ReportModel from '../models/report';
 import ReportInterface from '../interfaces/report.interface';
 import ReportService from '../services/reportService';
 
-class DefaultController implements Controller {
+class ReportController implements Controller {
   public path = '/report';
 
   public router = Router();
-
-  private report = ReportModel;
 
   private reportService = new ReportService();
 
@@ -29,11 +26,15 @@ class DefaultController implements Controller {
 
   private getReportById = async (request: Request, response: Response) => {
     const { id } = request.params;
-    if (id) {
-      return response.status(200)
-        .json(await this.reportService.getById(id));
+    try {
+      if (id) {
+        return response.status(200)
+          .json(await this.reportService.getById(id));
+      }
+      return response.status(404);
+    } catch (err) {
+      return response.status(404);
     }
-    return response.status(404);
   };
 
   private getAllReports = async (request: Request, response: Response) => {
@@ -46,7 +47,7 @@ class DefaultController implements Controller {
     }
   };
 
-  private createReport = async (request: Request, response: Response, next: NextFunction) => {
+  private createReport = async (request: Request, response: Response) => {
     try {
       const newReport: ReportInterface = request.body;
       if (newReport) {
@@ -54,11 +55,14 @@ class DefaultController implements Controller {
           response.status(201)
             .json(await this.reportService.create(newReport));
         } catch (err) {
-          next(err.errors);
+          return response.status(404)
+            .json(err);
         }
       }
+      return response.status(404);
     } catch (err) {
-      next(err.errors);
+      return response.status(404)
+        .json(err);
     }
   };
 
@@ -88,4 +92,4 @@ class DefaultController implements Controller {
   };
 }
 
-export default DefaultController;
+export default ReportController;
