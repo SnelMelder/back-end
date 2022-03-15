@@ -1,6 +1,4 @@
-import {
-  NextFunction, Request, Response, Router,
-} from 'express';
+import { Request, Response, Router } from 'express';
 import Controller from '../interfaces/controller.interface';
 import ReportInterface from '../interfaces/report.interface';
 import ReportService from '../services/reportService';
@@ -33,7 +31,8 @@ class ReportController implements Controller {
       }
       return response.status(404);
     } catch (err) {
-      return response.status(404);
+      return response.status(404)
+        .json(err.errors);
     }
   };
 
@@ -43,7 +42,7 @@ class ReportController implements Controller {
         .json(await this.reportService.getAll());
     } catch (err) {
       return response.status(404)
-        .json(err);
+        .json(err.errors);
     }
   };
 
@@ -56,17 +55,17 @@ class ReportController implements Controller {
             .json(await this.reportService.create(newReport));
         } catch (err) {
           return response.status(404)
-            .json(err);
+            .json(err.errors);
         }
       }
       return response.status(404);
     } catch (err) {
       return response.status(404)
-        .json(err);
+        .json(err.errors);
     }
   };
 
-  private updateReport = async (request: Request, response: Response, next: NextFunction) => {
+  private updateReport = async (request: Request, response: Response) => {
     try {
       const newReport: ReportInterface = request.body;
       if (newReport) {
@@ -74,19 +73,27 @@ class ReportController implements Controller {
           response.status(201)
             .json(await this.reportService.update(newReport));
         } catch (err) {
-          next(err.errors);
+          return response.status(404)
+            .json(err.errors);
         }
       }
+      return response.status(404);
     } catch (err) {
-      next(err.errors);
+      return response.status(404)
+        .json(err.errors);
     }
   };
 
   private deleteReportById = async (request: Request, response: Response) => {
     const { id } = request.params;
     if (id) {
-      return response.status(204)
-        .json(await this.reportService.delete(id));
+      try {
+        return response.status(204)
+          .json(await this.reportService.delete(id));
+      } catch (err) {
+        return response.status(404)
+          .json(err.errors);
+      }
     }
     return response.status(404);
   };

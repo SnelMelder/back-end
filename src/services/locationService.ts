@@ -5,7 +5,7 @@ export default class LocationService {
   private location = LocationModel;
 
   public getById = async (id: string) => this.location
-    .find({ _id: id })
+    .findOne({ _id: id })
     .populate('contractor');
 
   public getAllActiveLocations = async () => this.location.find({ active: true });

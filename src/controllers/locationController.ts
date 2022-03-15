@@ -28,7 +28,8 @@ class LocationController implements Controller {
       return response.status(200)
         .json(await this.locationService.getAllActiveLocations());
     } catch (err) {
-      return response.status(404);
+      return response.status(404)
+        .json(err.errors);
     }
   };
 
@@ -37,7 +38,8 @@ class LocationController implements Controller {
       return response.status(200)
         .json(await this.locationService.getAllLocations());
     } catch (err) {
-      return response.status(404);
+      return response.status(404)
+        .json(err.errors);
     }
   };
 
@@ -50,7 +52,8 @@ class LocationController implements Controller {
       }
       return response.status(404);
     } catch (err) {
-      return response.status(404);
+      return response.status(404)
+        .json(err.errors);
     }
   };
 
@@ -59,14 +62,17 @@ class LocationController implements Controller {
       const newLocation: LocationInterface = request.body;
       if (newLocation) {
         try {
-          return response.status(201).json(await this.locationService.create(newLocation));
+          return response.status(201)
+            .json(await this.locationService.create(newLocation));
         } catch (err) {
-          return response.status(404).json(err.errors);
+          return response.status(404)
+            .json(err.errors);
         }
       }
       return response.status(404);
     } catch (err) {
-      return response.status(404);
+      return response.status(404)
+        .json(err.errors);
     }
   };
 
@@ -78,20 +84,27 @@ class LocationController implements Controller {
           return response.status(201)
             .json(await this.locationService.update(updatedLocation));
         } catch (err) {
-          return response.status(404).json(err.errors);
+          return response.status(404)
+            .json(err.errors);
         }
       }
       return response.status(404);
     } catch (err) {
-      return response.status(404);
+      return response.status(404)
+        .json(err.errors);
     }
   };
 
   private deleteLocation = async (request: Request, response: Response) => {
     const { id } = request.params;
     if (id) {
-      return response.status(204)
-        .json(await this.locationService.delete(id));
+      try {
+        return response.status(204)
+          .json(await this.locationService.delete(id));
+      } catch (err) {
+        return response.status(404)
+          .json(err.errors);
+      }
     }
     return response.status(404);
   };

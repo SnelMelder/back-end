@@ -1,6 +1,9 @@
 import { model, Schema } from 'mongoose';
 import ReportInterface from '../interfaces/report.interface';
 import ReportStatus from '../helpers/enums/reportStatus.enum';
+import InjurySite from '../helpers/enums/injurySite.enum';
+import IncidentType from '../helpers/enums/incidentType.enum';
+import InjuryType from '../helpers/enums/injuryType.enum';
 
 const reportSchema = new Schema<ReportInterface>(
   {
@@ -18,8 +21,14 @@ const reportSchema = new Schema<ReportInterface>(
       type: Date,
       required: true,
     },
-    environmentalDamage: { type: String },
-    materialDamage: { type: String },
+    environmentalDamage: {
+      type: Boolean,
+      required: true,
+    },
+    materialDamage: {
+      type: Boolean,
+      required: true,
+    },
     personInvolved: { type: String },
     projectLocation: {
       type: Schema.Types.ObjectId,
@@ -29,9 +38,27 @@ const reportSchema = new Schema<ReportInterface>(
     additionalInformation: { type: String },
     witness: { type: String },
     status: {
-      type: Number,
+      type: String,
       enum: ReportStatus,
       default: ReportStatus.send,
+    },
+    injurySite: {
+      type: [String],
+      enum: InjurySite,
+      required: true,
+    },
+    incidentType: {
+      type: [String],
+      enum: IncidentType,
+      required: true,
+    },
+    injuryType: {
+      type: String,
+      enum: InjuryType,
+      required: true,
+    },
+    incidentTypeAdditionalInfo: {
+      type: String,
     },
   },
   {
