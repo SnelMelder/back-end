@@ -17,9 +17,11 @@
   "version": "1.0.0",
   "main": "app.js",
   "keywords": [],
+  "module": "ts-node",
   "scripts": {
     "build": "tsc",
-    "lint": "npx eslint src/"
+    "lint": "npx eslint src/",
+    "seed":"ts-node src/helpers/seed.ts"
   },
   "author": "",
   "license": "ISC",
