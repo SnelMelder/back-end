@@ -8,69 +8,84 @@ import ReportInterface from '../interfaces/report.interface';
 import App from '../app';
 import ReportStatus from './enums/reportStatus.enum';
 import InjuryType from './enums/injuryType.enum';
+import { faker } from '@faker-js/faker';
 
 
   const location = LocationModel;
   const report = ReportModel;
   const user = userModel;
 
+
+  async function DeleteAllFromDatabase(){
+      await report.deleteMany({});
+      await location.deleteMany({});
+      await user.deleteMany({});
+  }
+
   async function Seed(){
     App.connectDatabase()
       .then(() => console.log('Database connected'))
       .catch((err) => console.log(err));
 
-      const newContractor = await seedContractor();
-      const newLocation = await seedLocation(newContractor);
-      const newReport = await seedReports(newLocation,newContractor)
+      //Uncomment to delete all entities from database.
+      //await DeleteAllFromDatabase();
+
+      //Seed all entities with the amount entered as parameter.
+       await seedAll(5);
 
       process.exit(1);
   }
  
-
-  async function seedContractor(): Promise<UserInterface>{
-    try{
-      const contractor : UserInterface = {
-        name: 'Bob',
-        role: 'Uitvoerder'
-      }
-      return user.create(contractor);
+  async function createContractor(): Promise<UserInterface>{
+    const newContractor : UserInterface = {
+      name: faker.name.findName(),
+      role: faker.animal.cat()
     }
-    catch(err){
-      console.log(err);
-    }
-   
+    return newContractor;
   }
-   
 
-  async function seedLocation (contractor: UserInterface): Promise<LocationInterface>{
-    console.log(contractor)
+  async function createLocation(contractorParam: UserInterface): Promise<LocationInterface>{
     const newLocation : LocationInterface = {
-      contractor: contractor._id,
-      name: 'Eindhoven TQ4',
-      longitude: 5.478000,
-      latitude: 51.436600,
+      contractor: contractorParam._id,
+      name: faker.address.cityName(),
+      longitude: +faker.address.longitude(),
+      latitude: +faker.address.latitude(),
       active: true
     }
-    return location.create(newLocation);
+    return newLocation;
   }
 
-async function seedReports (location : LocationInterface, user: UserInterface){
-  console.log(location);
-  const newReport : ReportInterface = {
-    user: user._id,
-    projectLocation: location._id,
-    dateTime: new Date(),
-    anonymous: false,
-    environmentalDamage: false,
-    materialDamage: false,
-    status: ReportStatus.inProgress,
-    incidentType: [],
-    incidentTypeAdditionalInfo: 'overige info',
-    injuryType: InjuryType.both,
-    injurySite: []
+  async function createReport(contractorParam: UserInterface,locationParam: LocationInterface): Promise<ReportInterface>{
+    const newReport : ReportInterface = {
+      user: contractorParam._id,
+      projectLocation: locationParam._id,
+      dateTime: new Date(),
+      anonymous: false,
+      environmentalDamage: false,
+      materialDamage: false,
+      status: ReportStatus.inProgress,
+      incidentType: [],
+      incidentTypeAdditionalInfo: faker.animal.dog(),
+      injuryType: InjuryType.both,
+      injurySite: []
+    }
+    return newReport;
   }
-  return report.create(newReport);
-  };
+
+   async function seedAll(seedAmount : number){
+
+    for (let i = 0; i < seedAmount; i++) {
+      
+      const seededContractor = await user.create(await createContractor());
+      console.log("!!! contractor" + seededContractor);
+     
+      const seededLocation = await location.create(await createLocation(seededContractor));
+      console.log("@@@ Location" + seededLocation);
+     
+      await report.create(await createReport(seededContractor, seededLocation));
+    }
+  }
+  
 
   Seed();
 

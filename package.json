@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@faker-js/faker": "^6.0.0",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/mongoose": "^5.11.97",
@@ -21,7 +22,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "npx eslint src/",
-    "seed":"ts-node src/helpers/seed.ts"
+    "seed": "ts-node src/helpers/seed.ts"
   },
   "author": "",
   "license": "ISC",
