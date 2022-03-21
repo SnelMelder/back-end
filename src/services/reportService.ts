@@ -1,4 +1,4 @@
-import ReportStatus from 'helpers/enums/reportStatus.enum';
+import ReportStatus from '../helpers/enums/reportStatus.enum';
 import ReportModel from '../models/report';
 import ReportInterface from '../interfaces/report.interface';
 
@@ -21,12 +21,10 @@ export default class ReportService {
 
     // Single report which is completed and the last updated
     if (reports === null || reports.length === 0) {
-      console.log('in report == null ');
       const lastReport = await this.report.findOne({ user: userId, status: ReportStatus.complete }).sort('-updatedAt')
         .populate('user')
         .populate('projectLocation');
 
-      console.log(`lala${lastReport}`);
       return lastReport;
     }
     return reports;
