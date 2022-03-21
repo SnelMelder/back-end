@@ -17,18 +17,23 @@ class ReportController implements Controller {
   private initializeRoutes() {
     this.router.get(`${this.path}`, this.getAllReports);
     this.router.get(`${this.path}/:id`, this.getReportById);
-    this.router.get(`${this.path}/lastReport/:id`, this.getReportByUserAndStatus);
+    this.router.get(`${this.path}/getbylocation/:locationId`, this.getReportsByLocation);
     this.router.post(`${this.path}`, this.createReport);
     this.router.put(`${this.path}`, this.updateReport);
     this.router.delete(`${this.path}/:id`, this.deleteReportById);
   }
 
   private getReportByUserAndStatus = async (request: Request, response: Response) => {
+
+  }
+
+  
+  private getReportById = async (request: Request, response: Response) => {
     const { id } = request.params;
     try {
       if (id) {
         return response.status(200)
-          .json(await this.reportService.getReportByUserAndStatus(id));
+          .json(await this.reportService.getById(id));
       }
       return response.status(404);
     } catch (err) {
@@ -37,12 +42,13 @@ class ReportController implements Controller {
     }
   };
 
-  private getReportById = async (request: Request, response: Response) => {
-    const { id } = request.params;
+
+  private getReportsByLocation = async (request: Request, response: Response) => {
+    const { locationId } = request.params;
     try {
-      if (id) {
+      if (locationId) {
         return response.status(200)
-          .json(await this.reportService.getById(id));
+          .json(await this.reportService.getByLocationId(locationId));
       }
       return response.status(404);
     } catch (err) {
