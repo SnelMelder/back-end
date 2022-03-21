@@ -33,7 +33,7 @@ export default class ReportService {
   };
 
     public getByLocationId = async (locationId: string) => this.report
-    .findOne({ projectLocation: locationId })
+    .find({ projectLocation: locationId })
     .populate('user')
     .populate('projectLocation');
 
