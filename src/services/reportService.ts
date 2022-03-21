@@ -32,7 +32,7 @@ export default class ReportService {
     return reports;
   };
 
-    public getByLocationId = async (locationId: string) => this.report
+  public getByLocationId = async (locationId: string) => this.report
     .find({ projectLocation: locationId })
     .populate('user')
     .populate('projectLocation');

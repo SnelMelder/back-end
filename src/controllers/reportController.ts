@@ -23,11 +23,6 @@ class ReportController implements Controller {
     this.router.delete(`${this.path}/:id`, this.deleteReportById);
   }
 
-  private getReportByUserAndStatus = async (request: Request, response: Response) => {
-
-  }
-
-  
   private getReportById = async (request: Request, response: Response) => {
     const { id } = request.params;
     try {
@@ -41,7 +36,6 @@ class ReportController implements Controller {
         .json(err.errors);
     }
   };
-
 
   private getReportsByLocation = async (request: Request, response: Response) => {
     const { locationId } = request.params;
