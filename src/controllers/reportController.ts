@@ -23,7 +23,6 @@ class ReportController implements Controller {
     this.router.delete(`${this.path}/:id`, this.deleteReportById);
   }
 
-
   private getReportByUserAndStatus = async (request: Request, response: Response) => {
     const { id } = request.params;
     try {
