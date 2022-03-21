@@ -48,7 +48,7 @@ class App {
     this.app.use(errorMiddleware);
   }
 
-  private static async connectDatabase() {
+  public static async connectDatabase() {
     await connect(process.env.MONGODB_CONNECTION_STRING);
   }
 }
