@@ -18,6 +18,7 @@ class ReportController implements Controller {
     this.router.get(`${this.path}`, this.getAllReports);
     this.router.get(`${this.path}/:id`, this.getReportById);
     this.router.get(`${this.path}/lastReport/:id`, this.getReportByUserAndStatus);
+    this.router.get(`${this.path}/getbylocation/:locationId`, this.getReportsByLocation);
     this.router.post(`${this.path}`, this.createReport);
     this.router.put(`${this.path}`, this.updateReport);
     this.router.delete(`${this.path}/:id`, this.deleteReportById);
@@ -43,6 +44,20 @@ class ReportController implements Controller {
       if (id) {
         return response.status(200)
           .json(await this.reportService.getById(id));
+      }
+      return response.status(404);
+    } catch (err) {
+      return response.status(404)
+        .json(err.errors);
+    }
+  };
+
+  private getReportsByLocation = async (request: Request, response: Response) => {
+    const { locationId } = request.params;
+    try {
+      if (locationId) {
+        return response.status(200)
+          .json(await this.reportService.getByLocationId(locationId));
       }
       return response.status(404);
     } catch (err) {

@@ -5,7 +5,7 @@ name: Node.js CI build & lint
 
 on:
   pull_request:
-    branches: [ Development ]
+    branches: [ development ]
 
 jobs:
   build:
