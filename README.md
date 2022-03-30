@@ -37,6 +37,20 @@ Start the server
   nodemon
 ```
 
+## Run via Docker
+Build and run via the following commands:
+build image and tag it:
+
+
+```bash
+  docker build -t snelmelderbackend
+```
+
+```bash
+  docker run -p 5000:5000 -e MONGODB_CONNECTION_STRING=mongodb://host.docker.internal:27017/SnelMelder snelmelderbackend
+```
+
+
 ## Seeding database
 
 in the src\helpers\ folder there is a file called "seed.ts". this will seed 5 entities, or any other number you give to it as a parameter. Uncomment the "DeleteAllFromDatabase" method if you wish to delete all entities for a fresh database.
