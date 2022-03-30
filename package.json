@@ -21,7 +21,8 @@
   "scripts": {
     "build": "tsc",
     "lint": "npx eslint src/",
-    "seed": "ts-node src/helpers/seed.ts"
+    "seed": "ts-node src/helpers/seed.ts",
+    "server":"ts-node ./src/server.ts"
   },
   "author": "",
   "license": "ISC",
