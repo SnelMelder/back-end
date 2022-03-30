@@ -40,10 +40,16 @@ Start the server
 ## Run via Docker
 Build and run via the following commands:
 build image and tag it:
-```docker build -t snelmelderbackend .```
 
-Run the created image as a container:
-```docker run -p 5000:5000 -e MONGODB_CONNECTION_STRING=mongodb://host.docker.internal:27017/SnelMelder snelmelderbackend```
+
+```bash
+  docker build -t snelmelderbackend
+```
+
+```bash
+  docker run -p 5000:5000 -e MONGODB_CONNECTION_STRING=mongodb://host.docker.internal:27017/SnelMelder snelmelderbackend
+```
+
 
 ## Seeding database
 
