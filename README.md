@@ -1,8 +1,6 @@
-
 # SnelMelder
 
 This repository contains the Node.js (TypeScript) backend for the SnelMelder app.
-
 
 ## How to setup the project Locally
 
@@ -20,6 +18,7 @@ First Clone the project.
 Then open the project in your preferred text editor.
 
 Install dependencies.
+
 ```bash
   npm i
 ```
@@ -38,21 +37,40 @@ Start the server
   nodemon
 ```
 
+## Run via Docker
+Build and run via the following commands:
+build image and tag it:
+
+
+```bash
+  docker build -t snelmelderbackend
+```
+
+```bash
+  docker run -p 5000:5000 -e MONGODB_CONNECTION_STRING=mongodb://host.docker.internal:27017/SnelMelder snelmelderbackend
+```
+
+
+## Seeding database
+
+in the src\helpers\ folder there is a file called "seed.ts". this will seed 5 entities, or any other number you give to it as a parameter. Uncomment the "DeleteAllFromDatabase" method if you wish to delete all entities for a fresh database.
+
+to seed run the following command in console: "npm run seed".
+
 ## Troubleshooting
+
 In case any problems occur regarding the nodemon command. you might need to install nodemon globally.
 
 ```bash
-  npm i nodemon -g 
+  npm i nodemon -g
 ```
+
 if that still doesn't fix the error. you might need to install ts-node globally aswell.
 
 ```bash
   npm i ts-node -g
 ```
 
-
-
 ## Support
 
 For support or anything missing in this document, please ask / tell Bart.
-
