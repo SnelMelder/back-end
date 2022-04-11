@@ -53,4 +53,4 @@ jobs:
           app-name: 'snelmelder'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BF3D783F8F5B40029CACD9050352C6DA }}
-          package: build
+          package: .
