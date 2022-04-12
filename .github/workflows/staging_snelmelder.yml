@@ -26,6 +26,18 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
+          
+          
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v1.3
+        with:
+          envkey_DEBUG: false
+          MONGODB_CONNECTION_STRING: ${{ secrets.DATABASE }}
+          PORT: ${{ secrets.PORT }}
+          directory: build
+          file_name: .env
+          fail_on_empty: false
+
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
