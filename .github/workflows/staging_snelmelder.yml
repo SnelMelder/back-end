@@ -34,13 +34,13 @@ jobs:
           MONGODB_CONNECTION_STRING: ${{ secrets.DATABASE }}
           PORT: ${{ secrets.PORT }}
         run: |
-          cat <<EOF > .env
+          cat <<EOF > build/.env
           MONGODB_CONNECTION_STRING="$MONGODB_CONNECTION_STRING"
           PORT="$PORT"
           EOF
 
           echo "cat .env"
-          cat .env
+          cat build/.env
 
 
       - name: Upload artifact for deployment job
