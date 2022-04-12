@@ -20,7 +20,6 @@
   "module": "ts-node",
   "scripts": {
     "build": "tsc",
-    "postbuild": "cp package.json build/package.json && cd build && npm install",
     "lint": "npx eslint src/",
     "seed": "ts-node src/helpers/seed.ts",
     "server":"ts-node ./src/server.ts"

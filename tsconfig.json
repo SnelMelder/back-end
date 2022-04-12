@@ -3,7 +3,7 @@
     "sourceMap": true,
     "target": "es6",
     "outDir": "./build",
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "alwaysStrict": true,
     "noImplicitAny": true,
     "experimentalDecorators": true,
