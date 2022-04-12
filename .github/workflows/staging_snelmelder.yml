@@ -26,14 +26,20 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
+
           
           
-      
-      - name: Create env file
+      - name: Create and populate .env file
+        env:
+          MONGODB_CONNECTION_STRING: ${{ secrets.DATABASE }}
+          PORT: ${{ secrets.PORT }}
         run: |
-          touch build/.env
-          echo MONGODB_CONNECTION_STRING=${{ secrets.DATABASE }} >> .env
-          echo PORT=${{ secrets.PORT }} >> .env
+          cat <<EOF > .env
+          MONGODB_CONNECTION_STRING="$MONGODB_CONNECTION_STRING"
+          PORT="$PORT"
+          EOF
+
+          echo "cat .env"
           cat .env
 
 
