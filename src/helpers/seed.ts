@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import LocationModel from '../models/location';
 import LocationInterface from '../interfaces/location.interface';
-import UserInterface from 'src/interfaces/user.interface';
+import UserInterface from 'interfaces/user.interface';
 import ReportModel from '../models/report';
 import userModel from '../models/user';
 import ReportInterface from '../interfaces/report.interface';
