@@ -42,13 +42,16 @@ jobs:
 
           echo "cat .env"
           cat build/.env
+          
+      - name: Zip artifact for deployment
+        run: zip release.zip .build/* -r
 
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: node-app
-          path: build
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -62,6 +65,9 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: node-app
+          
+      - name: unzip artifact for deployment
+        run: unzip release.zip
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
