@@ -13,6 +13,7 @@
     "module": "commonjs"
   },
   "include": [
+    ".env",
     "src/**/*.ts"
 , "seed.ts"  ],
   "exclude": [
