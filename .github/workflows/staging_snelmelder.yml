@@ -49,6 +49,8 @@ jobs:
         with:
           name: node-app
           path: build
+                package.json
+                package-lock.json
 
   deploy:
     runs-on: ubuntu-latest
