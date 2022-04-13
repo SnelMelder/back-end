@@ -6,7 +6,7 @@ class DefaultController implements Controller {
 
   public router = Router();
 
-  private helloWorld = 'Hello World!';
+  private helloWorld = 'Hello SnelMelder';
 
   constructor() {
     this.initializeRoutes();
