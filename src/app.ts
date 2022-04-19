@@ -22,7 +22,7 @@ class App {
 
   public listen() {
     this.app.listen(process.env.PORT || 5000, () => {
-      console.log(`App listening on the port ${process.env.PORT}`);
+      console.log(`App listening on the port ${process.env.PORT || 5000}`);
     });
   }
 
@@ -49,7 +49,7 @@ class App {
   }
 
   public static async connectDatabase() {
-    await connect(process.env.MONGODB_CONNECTION_STRING);
+    return connect(process.env.MONGODB_CONNECTION_STRING);
   }
 }
 
