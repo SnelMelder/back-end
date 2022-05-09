@@ -1,4 +1,6 @@
 dist/
 seed.ts
-test/*
+tests/*
 src/test
+jest.config.js
+babel.config.js

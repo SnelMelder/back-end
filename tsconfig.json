@@ -10,13 +10,14 @@
     "emitDecoratorMetadata": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "module": "es6",
-    "resolveJsonModule":true
+    "module": "commonjs",
+    "resolveJsonModule":true,
+    "declaration": true,
   },
   "include": [
     ".env",
     "src/**/*.ts",
- "seed.ts", "src/test/__tests__/demoController/demoTests.ts"  ],
+ "seed.ts"  ],
   "exclude": [
     "node_modules"
   ]
