@@ -1,14 +1,13 @@
-// import * as express from 'express';
+import * as express from 'express';
 import { connect } from 'mongoose';
 import helmet from 'helmet';
 import Controller from './interfaces/controller.interface';
 import errorMiddleware from './middlewares/error.middleware';
 
 const cors = require('cors');
-const express = require('express');
 
 class App {
-  public app = express();
+  public app: express.Application;
 
   constructor(controllers: Controller[]) {
     this.app = express();

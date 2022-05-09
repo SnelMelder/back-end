@@ -1,2 +1,4 @@
 dist/
 seed.ts
+test/*
+src/test
