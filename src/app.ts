@@ -1,14 +1,23 @@
-// import * as express from 'express';
 import { connect } from 'mongoose';
 import helmet from 'helmet';
 import Controller from './interfaces/controller.interface';
+import Config from './config/config';
 import errorMiddleware from './middlewares/error.middleware';
+
+const { BearerStrategy } = require('passport-azure-ad');
+const passport = require('passport');
 
 const cors = require('cors');
 const express = require('express');
 
 class App {
   public app = express();
+
+  private readonly config = new Config();
+
+  private bearerStrategy = new BearerStrategy(this.config.options, (token: any, done: any) => {
+    done(null, {}, token);
+  });
 
   constructor(controllers: Controller[]) {
     this.app = express();
@@ -18,6 +27,7 @@ class App {
     this.initializeMiddlewares();
     this.initializeControllers(controllers);
     this.initializeErrorHandling();
+    console.log(this.bearerStrategy);
   }
 
   public listen() {
@@ -36,6 +46,8 @@ class App {
     this.app.use(cors({
       origin: ['http://localhost:5000'],
     }));
+    this.app.use(passport.initialize());
+    passport.use(this.bearerStrategy);
   }
 
   private initializeControllers(controllers: Controller[]) {
