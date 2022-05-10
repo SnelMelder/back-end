@@ -15,7 +15,7 @@ class DefaultController implements Controller {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}`, passport.authenticate('oauth-bearer', { session: false }), this.status);
+    this.router.get(`${this.path}`, passport.authenticate('jwt', { session: false }), this.status);
   }
 
   private status = async (request: Request, response: Response) => {
