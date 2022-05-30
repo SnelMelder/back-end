@@ -3,6 +3,8 @@ import { passportJwtSecret } from 'jwks-rsa';
 const { ExtractJwt } = require('passport-jwt');
 
 class Config {
+  private loggingText: string = 'Checking if JWT is valid, Payload:';
+
   public readonly options = {
     identityMetadata: `https://login.microsoftonline.com/${process.env.TENANT_ID}/discovery/v2.0/keys`,
     clientID: process.env.CLIENT_ID,
@@ -21,12 +23,12 @@ class Config {
       jwksUri: `https://login.microsoftonline.com/${process.env.TENANT_ID}/discovery/v2.0/keys`,
     }),
     algorithms: ['RS256'],
-    audience: process.env.CLIENT_ID, //ToDO: Get Audience from azure
+    audience: process.env.CLIENT_ID, // ToDO: Get Audience from azure
     issuer: `https://sts.windows.net/${process.env.TENANT_ID}/`,
   };
 
-  public verify = (jwt_payload: any, done:any) => {
-    console.log('Signature is valid for the JSON Web Token (JWT), let\'s check other things...');
+  public verify = (jwt_payload: any, done: any) => {
+    console.log(this.loggingText);
     console.log(jwt_payload);
 
     return done(null, false);

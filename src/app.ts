@@ -15,7 +15,6 @@ class App {
 
   private readonly config = new Config();
 
-
   constructor(controllers: Controller[]) {
     this.app = express();
     App.connectDatabase()
