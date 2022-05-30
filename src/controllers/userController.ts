@@ -4,7 +4,7 @@ import userModel from '../models/user';
 import UserInterface from '../interfaces/user.interface';
 
 class UserController implements Controller {
-  public path = '/users';
+  public path = '/user';
 
   public router = Router();
 
