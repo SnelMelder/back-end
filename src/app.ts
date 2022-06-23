@@ -1,6 +1,8 @@
 // import * as express from 'express';
 import { connect } from 'mongoose';
 import helmet from 'helmet';
+import * as swaggerUI from 'swagger-ui-express';
+import * as swaggerJson from './swagger.json';
 import Controller from './interfaces/controller.interface';
 import errorMiddleware from './middlewares/error.middleware';
 
@@ -30,13 +32,22 @@ class App {
     return this.app;
   }
 
+  private startSwagger() {
+    this.app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerJson));
+  }
+
   private initializeMiddlewares() {
     this.app.use(express.json());
-    this.app.use(helmet());
+    if (process.env.INDEVELOPMENT === 'true') {
+      this.app.use(helmet());
+    }
     this.app.use(cors({
       origin: ['http://localhost:5000'],
     }));
+    this.startSwagger();
   }
+
+
 
   private initializeControllers(controllers: Controller[]) {
     controllers.forEach((controller) => {

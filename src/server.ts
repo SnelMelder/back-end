@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import App from './app';
 import UserController from './controllers/userController';
 import DefaultController from './controllers/defaultController';
@@ -10,6 +11,7 @@ const app = new App(
     new UserController(),
     new ReportController(),
     new LocationController(),
+    // new HelloWorldController(),
   ],
 );
 

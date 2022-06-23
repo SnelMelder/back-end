@@ -1,6 +1,11 @@
 import { Request, Response, Router } from 'express';
+import {
+  Route, Tags,
+} from 'tsoa';
 import Controller from '../interfaces/controller.interface';
 
+@Route('HelloWorld')
+@Tags('HelloWorldController')
 class DefaultController implements Controller {
   public path = '/';
 
