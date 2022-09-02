@@ -6,6 +6,8 @@ import Controller from '../interfaces/controller.interface';
 
 @Route('HelloWorld')
 @Tags('HelloWorldController')
+const passport = require('passport');
+
 class DefaultController implements Controller {
   public path = '/';
 
@@ -18,7 +20,7 @@ class DefaultController implements Controller {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}`, this.status);
+    this.router.get(`${this.path}`, passport.authenticate('jwt', { session: false }), this.status);
   }
 
   private status = async (request: Request, response: Response) => {
