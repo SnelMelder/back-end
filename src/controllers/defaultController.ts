@@ -1,8 +1,6 @@
 import { Request, Response, Router } from 'express';
 import Controller from '../interfaces/controller.interface';
 
-const passport = require('passport');
-
 class DefaultController implements Controller {
   public path = '/';
 
@@ -15,7 +13,7 @@ class DefaultController implements Controller {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}`, passport.authenticate('jwt', { session: false }), this.status);
+    this.router.get(`${this.path}`, this.status);
   }
 
   private status = async (request: Request, response: Response) => {
