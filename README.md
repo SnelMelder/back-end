@@ -70,7 +70,3 @@ if that still doesn't fix the error. you might need to install ts-node globally 
 ```bash
   npm i ts-node -g
 ```
-
-## Support
-
-For support or anything missing in this document, please ask / tell Bart.
