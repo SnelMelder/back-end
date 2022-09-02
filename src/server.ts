@@ -4,8 +4,6 @@ import DefaultController from './controllers/defaultController';
 import ReportController from './controllers/reportController';
 import LocationController from './controllers/locationController';
 
-require('dotenv').config();
-
 const app = new App(
   [
     new DefaultController(),
