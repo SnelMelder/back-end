@@ -1,14 +1,19 @@
-// import * as express from 'express';
 import { connect } from 'mongoose';
 import helmet from 'helmet';
 import Controller from './interfaces/controller.interface';
+import Config from './config/config';
 import errorMiddleware from './middlewares/error.middleware';
+
+const passport = require('passport');
+const JwtStrategy = require('passport-jwt').Strategy;
 
 const cors = require('cors');
 const express = require('express');
 
 class App {
   public app = express();
+
+  private readonly config = new Config();
 
   constructor(controllers: Controller[]) {
     this.app = express();
@@ -36,6 +41,8 @@ class App {
     this.app.use(cors({
       origin: ['http://localhost:5000'],
     }));
+    this.app.use(passport.initialize());
+    passport.use(new JwtStrategy(this.config.jwtOptions, this.config.verify));
   }
 
   private initializeControllers(controllers: Controller[]) {
