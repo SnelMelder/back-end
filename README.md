@@ -23,7 +23,7 @@ Install dependencies.
   npm i
 ```
 
-You will need to change the following environment variables in your .env file
+You will need to rename .env_template to .env and change the following environment variables in the newly created .env file
 
 `PORT` - The port the API will be listening on (optional, default: 5000)
 
