@@ -19,9 +19,9 @@
   "module": "ts-node",
   "scripts": {
     "build": "tsc -p .",
-    "lint": "npx eslint src/",
+    "lint": "npx eslint ./src/",
     "seed": "ts-node src/helpers/seed.ts",
-    "server":"ts-node ./src/server.ts"
+    "server":"node ./build/server.js"
   },
   "author": "",
   "license": "ISC",
