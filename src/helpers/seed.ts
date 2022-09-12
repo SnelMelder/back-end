@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import LocationModel from '../models/location';
 import LocationInterface from '../interfaces/location.interface';
 import UserInterface from 'interfaces/user.interface';
@@ -12,6 +11,8 @@ import { faker } from '@faker-js/faker';
 import IncidentTypeEnum from './enums/incidentType.enum';
 import IncidentType from './enums/incidentType.enum';
 import InjurySite from './enums/injurySite.enum';
+
+require('dotenv').config();
 
 const location = LocationModel;
 const report = ReportModel;
