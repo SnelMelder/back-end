@@ -23,18 +23,17 @@ Install dependencies.
   npm i
 ```
 
-Create a file in the root of the project folder called '.env'
+You will need to change the following environment variables in your .env file
 
-You will need to add the following environment variables to your .env file
+`PORT` - The port the API will be listening on (optional, default: 5000)
 
-`PORT=5000` optional
-
-`MONGODB_CONNECTION_STRING=mongodb://localhost:27017/SnelMelder`
+`MONGODB_CONNECTION_STRING` - The mongodb connection string (example: mongodb://localhost:27017/snelmelder)
 
 Start the server
 
 ```bash
-  nodemon
+  npm run build
+  npm run server
 ```
 
 ## Run via Docker
@@ -56,17 +55,3 @@ build image and tag it:
 in the src\helpers\ folder there is a file called "seed.ts". this will seed 5 entities, or any other number you give to it as a parameter. Uncomment the "DeleteAllFromDatabase" method if you wish to delete all entities for a fresh database.
 
 to seed run the following command in console: "npm run seed".
-
-## Troubleshooting
-
-In case any problems occur regarding the nodemon command. you might need to install nodemon globally.
-
-```bash
-  npm i nodemon -g
-```
-
-if that still doesn't fix the error. you might need to install ts-node globally aswell.
-
-```bash
-  npm i ts-node -g
-```
