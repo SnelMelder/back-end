@@ -45,5 +45,9 @@ export default class ReportService {
       updateReport,
     );
 
-  public delete = async (id: String) => this.report.findOneAndDelete({ _id: id });
+  public upload = async (id: String, pathArray: Array<string>) => this.report
+    .findOneAndUpdate({ _id: id }, { pictureList: pathArray });
+
+  public delete = async (id: String) => this.report
+    .findOneAndDelete({ _id: id });
 }

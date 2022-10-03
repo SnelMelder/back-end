@@ -21,8 +21,9 @@ interface Report {
   incidentTypeAdditionalInfo: string;
   injuryType: InjuryType;
   injurySite: InjurySite[];
+  pictureList?: string[];
   createdAt?: Date,
-  updatedAt?: Date
+  updatedAt?: Date,
 }
 
 export default Report;

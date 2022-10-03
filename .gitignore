@@ -134,3 +134,7 @@ build/
 
 # .env
 .env
+
+# temporary uploaded files and images
+tmp/
+images/
