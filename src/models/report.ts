@@ -60,6 +60,9 @@ const reportSchema = new Schema<ReportInterface>(
     incidentTypeAdditionalInfo: {
       type: String,
     },
+    pictureList: {
+      type: [String],
+    },
   },
   {
     timestamps: true,

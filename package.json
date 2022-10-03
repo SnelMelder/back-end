@@ -1,7 +1,7 @@
 {
   "devDependencies": {
-    "@types/express": "^4.17.13",
     "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",
     "eslint": "^8.10.0",
@@ -20,20 +20,23 @@
   "scripts": {
     "build": "tsc -p .",
     "lint": "npx eslint ./src/",
+    "lint-fix": "npx eslint ./src/ --fix",
     "seed": "ts-node src/helpers/seed.ts",
-    "server":"node ./build/server.js"
+    "server": "node ./build/server.js"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "@faker-js/faker": "^6.0.0",
+    "@types/multer": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "express-validator": "^6.14.0",
     "helmet": "^5.0.2",
     "mongodb": "^4.4.1",
-    "mongoose": "^6.2.4"
+    "mongoose": "^6.2.4",
+    "multer": "^1.4.5-lts.1"
   }
 }
