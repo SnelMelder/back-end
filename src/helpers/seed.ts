@@ -6,7 +6,7 @@ import userModel from '../models/user';
 import ReportInterface from '../interfaces/report.interface';
 import App from '../app';
 import ReportStatus from './enums/reportStatus.enum';
-import InjuryType from './enums/injuryType.enum';
+import DamageType from './enums/damageType.enum';
 import { faker } from '@faker-js/faker';
 import IncidentTypeEnum from './enums/incidentType.enum';
 import IncidentType from './enums/incidentType.enum';
@@ -54,8 +54,8 @@ async function createReport(contractorParam: UserInterface, locationParam: Locat
     status: ReportStatus.inProgress,
     incidentType: [IncidentTypeEnum.dangerousAct, IncidentType.accident, IncidentType.other],
     incidentTypeAdditionalInfo: faker.animal.dog(),
-    injuryType: InjuryType.both,
-    injurySite: [InjurySite.arm, InjurySite.hand]
+    damageTypes: [DamageType.environmental],
+    injurySite: [InjurySite['right-arm'], InjurySite['left-arm']]
   };
   return newReport;
 }
