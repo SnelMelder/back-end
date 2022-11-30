@@ -1,6 +1,7 @@
 import { connect } from 'mongoose';
 import helmet from 'helmet';
 import Controller from './interfaces/controller.interface';
+import authMiddleware from './middlewares/auth.middleware';
 import errorMiddleware from './middlewares/error.middleware';
 
 require('dotenv').config();
@@ -36,6 +37,7 @@ class App {
     this.app.use(cors({
       origin: ['http://localhost:5000'],
     }));
+    this.app.use(authMiddleware);
   }
 
   private initializeControllers(controllers: Controller[]) {

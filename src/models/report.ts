@@ -7,10 +7,10 @@ import DamageType from '../helpers/enums/damageType.enum';
 
 const reportSchema = new Schema<ReportInterface>(
   {
-    user: {
-      type: Schema.Types.ObjectId,
+    oid: {
+      type: String,
       ref: 'User',
-      required: true,
+      required: false,
     },
     anonymous: {
       type: Boolean,

@@ -45,7 +45,7 @@ async function createLocation(contractorParam: UserInterface): Promise<LocationI
 
 async function createReport(contractorParam: UserInterface, locationParam: LocationInterface): Promise<ReportInterface> {
   const newReport: ReportInterface = {
-    user: contractorParam._id,
+    oid: "123456-1234-1234-1234-1234-1234a5",
     projectLocation: locationParam._id,
     dateTime: new Date(),
     anonymous: false,

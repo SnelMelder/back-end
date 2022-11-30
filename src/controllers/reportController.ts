@@ -92,7 +92,7 @@ class ReportController implements Controller {
       if (newReport) {
         try {
           response.status(201)
-            .json(await this.reportService.create(newReport));
+            .json(await this.reportService.create(newReport, response.locals.user));
         } catch (err) {
           return response.status(404)
             .json(err.errors);

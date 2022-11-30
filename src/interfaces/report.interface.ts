@@ -6,7 +6,7 @@ import InjurySite from '../helpers/enums/injurySite.enum';
 
 interface Report {
   _id?: Schema.Types.ObjectId;
-  user: Schema.Types.ObjectId;
+  oid: String;
   projectLocation: Schema.Types.ObjectId;
   dateTime: Date;
   personInvolved?: string;
