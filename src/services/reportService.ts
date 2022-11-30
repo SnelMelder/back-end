@@ -38,8 +38,9 @@ export default class ReportService {
   public getAll = async () => this.report.find();
 
   public create = async (newReport: ReportInterface, user: any) => {
-    newReport.oid = user.oid;
-    return this.report.create(newReport)
+    const ReportDocument = newReport;
+    ReportDocument.oid = user.oid;
+    return this.report.create(ReportDocument);
   };
 
   public update = async (updateReport: ReportInterface) => this.report
