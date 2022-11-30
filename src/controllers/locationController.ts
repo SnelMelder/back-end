@@ -4,7 +4,7 @@ import LocationService from '../services/locationService';
 import LocationInterface from '../interfaces/location.interface';
 
 class LocationController implements Controller {
-  public path = '/location';
+  public path = '/locations';
 
   public router = Router();
 

@@ -7,7 +7,7 @@ const multer = require('multer');
 const fs = require('fs');
 
 class ReportController implements Controller {
-  public path = '/report';
+  public path = '/reports';
 
   public router = Router();
 
