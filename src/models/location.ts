@@ -3,8 +3,8 @@ import LocationInterface from '../interfaces/location.interface';
 
 const locationSchema = new Schema<LocationInterface>(
   {
-    contractor: {
-      type: Schema.Types.ObjectId,
+    contractors: {
+      type: [String],
       ref: 'User',
       required: true,
     },

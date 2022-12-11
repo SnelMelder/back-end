@@ -36,7 +36,7 @@ async function createLocation(
   contractorParam: UserInterface,
 ): Promise<LocationInterface> {
   const newLocation: LocationInterface = {
-    contractor: contractorParam._id,
+    contractors: [contractorParam._id.toString()],
     name: faker.address.cityName(),
     active: true,
   };
