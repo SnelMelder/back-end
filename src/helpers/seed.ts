@@ -27,47 +27,54 @@ async function DeleteAllFromDatabase() {
 async function createContractor(): Promise<UserInterface> {
   const newContractor: UserInterface = {
     name: faker.name.findName(),
-    role: faker.animal.cat()
+    role: faker.animal.cat(),
   };
   return newContractor;
 }
 
-async function createLocation(contractorParam: UserInterface): Promise<LocationInterface> {
+async function createLocation(
+  contractorParam: UserInterface,
+): Promise<LocationInterface> {
   const newLocation: LocationInterface = {
-    contractor: contractorParam._id,
+    contractors: [contractorParam._id.toString()],
     name: faker.address.cityName(),
-    longitude: +faker.address.longitude(),
-    latitude: +faker.address.latitude(),
-    active: true
+    active: true,
   };
   return newLocation;
 }
 
-async function createReport(contractorParam: UserInterface, locationParam: LocationInterface): Promise<ReportInterface> {
+async function createReport(
+  contractorParam: UserInterface,
+  locationParam: LocationInterface,
+): Promise<ReportInterface> {
   const newReport: ReportInterface = {
-    oid: "123456-1234-1234-1234-1234-1234a5",
+    oid: '123456-1234-1234-1234-1234-1234a5',
     projectLocation: locationParam._id,
     dateTime: new Date(),
     anonymous: false,
     environmentalDamage: false,
     materialDamage: false,
     status: ReportStatus.inProgress,
-    incidentType: [IncidentTypeEnum.dangerousAct, IncidentType.accident, IncidentType.other],
+    incidentType: [
+      IncidentTypeEnum.dangerousAct,
+      IncidentType.accident,
+      IncidentType.other,
+    ],
     incidentTypeAdditionalInfo: faker.animal.dog(),
     damageTypes: [DamageType.environmental],
-    injurySite: [InjurySite['right-arm'], InjurySite['left-arm']]
+    injurySite: [InjurySite['right-arm'], InjurySite['left-arm']],
   };
   return newReport;
 }
 
 async function seedAll(seedAmount: number) {
-
   for (let i = 0; i < seedAmount; i++) {
-
     const seededContractor = await user.create(await createContractor());
     console.log('!!! contractor' + seededContractor);
 
-    const seededLocation = await location.create(await createLocation(seededContractor));
+    const seededLocation = await location.create(
+      await createLocation(seededContractor),
+    );
     console.log('@@@ Location' + seededLocation);
 
     await report.create(await createReport(seededContractor, seededLocation));
@@ -89,9 +96,3 @@ async function Seed() {
 }
 
 Seed();
-
-
-
-
-
-
