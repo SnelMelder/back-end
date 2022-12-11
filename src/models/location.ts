@@ -12,14 +12,6 @@ const locationSchema = new Schema<LocationInterface>(
       type: String,
       required: true,
     },
-    latitude: {
-      type: Number,
-      required: true,
-    },
-    longitude: {
-      type: Number,
-      required: true,
-    },
     active: {
       type: Boolean,
       required: true,
