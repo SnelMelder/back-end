@@ -34,9 +34,11 @@ class App {
   private initializeMiddlewares() {
     this.app.use(express.json());
     this.app.use(helmet());
-    this.app.use(cors({
-      origin: ['http://localhost:5000'],
-    }));
+    this.app.use(
+      cors({
+        origin: ['http://localhost:5000'],
+      }),
+    );
     this.app.use(authMiddleware);
   }
 
