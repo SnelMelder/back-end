@@ -8,6 +8,8 @@ require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 
+const allowedOrigins = ['http://localhost:3000', 'http://localhost:5000'];
+
 class App {
   public app = express();
 
@@ -36,7 +38,7 @@ class App {
     this.app.use(helmet());
     this.app.use(
       cors({
-        origin: ['http://localhost:5000'],
+        origin: allowedOrigins,
       }),
     );
     this.app.use(authMiddleware);
