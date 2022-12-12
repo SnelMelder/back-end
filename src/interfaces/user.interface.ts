@@ -1,9 +1,7 @@
-import { Schema } from 'mongoose';
-
 interface UserInterface {
-  _id?: Schema.Types.ObjectId;
-  name: string,
-  role: string,
+  id?: string;
+  name: string;
+  imageInitials: string;
 }
 
 export default UserInterface;

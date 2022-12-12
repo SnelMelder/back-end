@@ -3,6 +3,9 @@ import helmet from 'helmet';
 import Controller from './interfaces/controller.interface';
 import authMiddleware from './middlewares/auth.middleware';
 import errorMiddleware from './middlewares/error.middleware';
+import getAccessToken from './services/authService';
+
+getAccessToken();
 
 require('dotenv').config();
 const cors = require('cors');
@@ -34,9 +37,11 @@ class App {
   private initializeMiddlewares() {
     this.app.use(express.json());
     this.app.use(helmet());
-    this.app.use(cors({
-      origin: ['http://localhost:5000'],
-    }));
+    this.app.use(
+      cors({
+        origin: ['http://localhost:5000'],
+      }),
+    );
     this.app.use(authMiddleware);
   }
 

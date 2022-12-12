@@ -2,7 +2,6 @@ import LocationModel from '../models/location';
 import LocationInterface from '../interfaces/location.interface';
 import UserInterface from 'interfaces/user.interface';
 import ReportModel from '../models/report';
-import userModel from '../models/user';
 import ReportInterface from '../interfaces/report.interface';
 import App from '../app';
 import ReportStatus from './enums/reportStatus.enum';
@@ -16,27 +15,15 @@ require('dotenv').config();
 
 const location = LocationModel;
 const report = ReportModel;
-const user = userModel;
 
 async function DeleteAllFromDatabase() {
   await report.deleteMany({});
   await location.deleteMany({});
-  await user.deleteMany({});
 }
 
-async function createContractor(): Promise<UserInterface> {
-  const newContractor: UserInterface = {
-    name: faker.name.findName(),
-    role: faker.animal.cat(),
-  };
-  return newContractor;
-}
-
-async function createLocation(
-  contractorParam: UserInterface,
-): Promise<LocationInterface> {
+async function createLocation(): Promise<LocationInterface> {
   const newLocation: LocationInterface = {
-    contractors: [contractorParam._id.toString()],
+    contractors: ['some-contractor-id'],
     name: faker.address.cityName(),
     active: true,
   };
@@ -44,7 +31,6 @@ async function createLocation(
 }
 
 async function createReport(
-  contractorParam: UserInterface,
   locationParam: LocationInterface,
 ): Promise<ReportInterface> {
   const newReport: ReportInterface = {
@@ -69,15 +55,10 @@ async function createReport(
 
 async function seedAll(seedAmount: number) {
   for (let i = 0; i < seedAmount; i++) {
-    const seededContractor = await user.create(await createContractor());
-    console.log('!!! contractor' + seededContractor);
-
-    const seededLocation = await location.create(
-      await createLocation(seededContractor),
-    );
+    const seededLocation = await location.create(await createLocation());
     console.log('@@@ Location' + seededLocation);
 
-    await report.create(await createReport(seededContractor, seededLocation));
+    await report.create(await createReport(seededLocation));
   }
 }
 
