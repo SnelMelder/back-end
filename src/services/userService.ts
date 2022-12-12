@@ -3,7 +3,9 @@ import axios from 'axios';
 import UserInterface from 'interfaces/user.interface';
 import getAccessToken from './authService';
 
-const contractorsGroupId = '0bb825d4-c0da-4b81-993d-ac18b1c0d08a';
+require('dotenv').config();
+
+const contractorsGroupId = process.env.CONTRACTORS_SECURITY_GROUP_ID;
 
 export default class UserService {
   public async getAllContractors() {
