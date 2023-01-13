@@ -8,7 +8,7 @@ require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 
-const allowedOrigins = ['http://localhost:3000', 'http://localhost:5000'];
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(' ');
 
 class App {
   public app = express();
