@@ -24,7 +24,7 @@
     "lint": "npx eslint ./src/",
     "lint-fix": "npx eslint ./src/ --fix",
     "seed": "ts-node src/helpers/seed.ts",
-    "server": "node ./build/server.js"
+    "start": "node ./build/server.js"
   },
   "author": "",
   "license": "ISC",
