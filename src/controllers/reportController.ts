@@ -1,4 +1,5 @@
 import { Request, Response, Router } from 'express';
+import GraphMailService from '../services/mailService';
 import Controller from '../interfaces/controller.interface';
 import ReportInterface from '../interfaces/report.interface';
 import ReportService from '../services/reportService';
@@ -12,6 +13,8 @@ class ReportController implements Controller {
   public router = Router();
 
   private reportService = new ReportService();
+
+  private mailService = new GraphMailService();
 
   public upload_middleware = multer({ dest: './tmp/uploads/' });
 
@@ -90,6 +93,7 @@ class ReportController implements Controller {
 
   private getAllReports = async (request: Request, response: Response) => {
     try {
+      console.log('Wtf');
       return response.status(200).json(await this.reportService.getAll());
     } catch (err) {
       return response.status(404).json(err.errors);
