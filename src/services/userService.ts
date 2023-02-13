@@ -25,11 +25,22 @@ export default class UserService {
     return users;
   }
 
+  public async getContractorsByIds(ids: string[]) {
+    const allContractors = await this.getAllContractors();
+
+    const selectedContractors = allContractors.filter((contractor) =>
+      ids.includes(contractor.id),
+    );
+
+    return selectedContractors;
+  }
+
   private toModel(msGraphUsers: MicrosoftGraph.User[]): UserInterface[] {
     return msGraphUsers.map((item) => ({
       id: item.id,
       name: item.displayName,
       imageInitials: item.givenName[0] + item.surname[0],
+      email: item.userPrincipalName,
     }));
   }
 }
