@@ -1,6 +1,5 @@
 import { model, Schema } from 'mongoose';
 import ReportInterface from '../interfaces/report.interface';
-import ReportStatus from '../helpers/enums/reportStatus.enum';
 import InjurySite from '../helpers/enums/injurySite.enum';
 import IncidentType from '../helpers/enums/incidentType.enum';
 import DamageType from '../helpers/enums/damageType.enum';
@@ -16,7 +15,6 @@ const reportSchema = new Schema<ReportInterface>(
       type: Boolean,
       required: true,
     },
-    contractorAdditionalInfo: { type: String },
     dateTime: {
       type: Date,
       required: true,
@@ -29,11 +27,6 @@ const reportSchema = new Schema<ReportInterface>(
     },
     additionalInformation: { type: String },
     witness: { type: String },
-    status: {
-      type: String,
-      enum: ReportStatus,
-      default: ReportStatus.send,
-    },
     injurySite: {
       type: [String],
       enum: InjurySite,
