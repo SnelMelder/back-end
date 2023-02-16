@@ -1,5 +1,4 @@
 import { Schema } from 'mongoose';
-import ReportStatus from '../helpers/enums/reportStatus.enum';
 import DamageType from '../helpers/enums/damageType.enum';
 import incidentType from '../helpers/enums/incidentType.enum';
 import InjurySite from '../helpers/enums/injurySite.enum';
@@ -13,17 +12,13 @@ interface Report {
   witness?: string;
   additionalInformation?: string;
   anonymous: boolean;
-  environmentalDamage: boolean;
-  materialDamage: boolean;
-  contractorAdditionalInfo?: string;
-  status: ReportStatus;
   incidentType: incidentType[];
   incidentTypeAdditionalInfo: string;
   damageTypes: DamageType[];
   injurySite: InjurySite[];
   pictureList?: string[];
-  createdAt?: Date,
-  updatedAt?: Date,
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export default Report;

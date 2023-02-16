@@ -38,9 +38,6 @@ async function createReport(
     projectLocation: locationParam._id,
     dateTime: new Date(),
     anonymous: false,
-    environmentalDamage: false,
-    materialDamage: false,
-    status: ReportStatus.inProgress,
     incidentType: [
       IncidentTypeEnum.dangerousAct,
       IncidentType.accident,
