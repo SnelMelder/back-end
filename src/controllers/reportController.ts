@@ -1,4 +1,9 @@
 import { Request, Response, Router } from 'express';
+import {
+  checkJwt,
+  requiredScopes,
+  scopes,
+} from '../middlewares/auth.middleware';
 import Controller from '../interfaces/controller.interface';
 import ReportInterface from '../interfaces/report.interface';
 import ReportService from '../services/reportService';
@@ -15,7 +20,12 @@ class ReportController implements Controller {
   }
 
   private initializeRoutes() {
-    this.router.post(`${this.path}`, this.createReport);
+    this.router.post(
+      `${this.path}`,
+      checkJwt,
+      requiredScopes(scopes.reports.create),
+      this.createReport,
+    );
   }
 
   private createReport = async (request: Request, response: Response) => {

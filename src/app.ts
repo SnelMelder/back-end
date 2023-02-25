@@ -1,7 +1,6 @@
 import { connect } from 'mongoose';
 import helmet from 'helmet';
 import Controller from './interfaces/controller.interface';
-import authMiddleware from './middlewares/auth.middleware';
 import errorMiddleware from './middlewares/error.middleware';
 
 require('dotenv').config();
@@ -41,7 +40,6 @@ class App {
         origin: allowedOrigins,
       }),
     );
-    this.app.use(authMiddleware);
   }
 
   private initializeControllers(controllers: Controller[]) {
