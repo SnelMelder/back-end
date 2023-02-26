@@ -1,4 +1,9 @@
 import { Request, Response, Router } from 'express';
+import {
+  requiredScopes,
+  checkJwt,
+  scopes,
+} from '../middlewares/auth.middleware';
 import Controller from '../interfaces/controller.interface';
 import UserService from '../services/userService';
 
@@ -14,7 +19,12 @@ class UserController implements Controller {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}/contractors`, this.getAllContractors);
+    this.router.get(
+      `${this.path}/contractors`,
+      checkJwt,
+      requiredScopes(scopes.users.read),
+      this.getAllContractors,
+    );
   }
 
   private getAllContractors = async (request: Request, response: Response) => {
