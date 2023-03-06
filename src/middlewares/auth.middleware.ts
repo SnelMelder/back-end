@@ -13,7 +13,7 @@ const availableScopes = {
     create: 'reports:create',
   },
   locations: {
-    create: 'locations:write',
+    create: 'locations:create',
     read: 'locations:read',
     update: 'locations:update',
     delete: 'locations:delete',
