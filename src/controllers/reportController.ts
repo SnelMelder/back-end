@@ -29,9 +29,13 @@ class ReportController implements Controller {
   }
 
   private createReport = async (request: Request, response: Response) => {
+    console.log(response);
+
     try {
       const newReport: ReportInterface = request.body;
+
       if (newReport) {
+        console.log('New report...');
         try {
           return response
             .status(201)
@@ -39,12 +43,13 @@ class ReportController implements Controller {
               await this.reportService.create(newReport, response.locals.user),
             );
         } catch (err) {
-          return response.status(404).json(err.errors);
+          console.log(err);
+          return response.status(500).json(err.errors);
         }
       }
-      return response.status(404);
+      return response.status(500);
     } catch (err) {
-      return response.status(404).json(err.errors);
+      return response.status(500).json(err.errors);
     }
   };
 }
