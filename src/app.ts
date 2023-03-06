@@ -41,7 +41,6 @@ class App {
         origin: allowedOrigins,
       }),
     );
-    this.app.use(userMiddleware);
   }
 
   private initializeControllers(controllers: Controller[]) {
