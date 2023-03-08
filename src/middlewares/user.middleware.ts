@@ -7,6 +7,11 @@ export default async function userMiddleware(
   response: Response,
   next: NextFunction,
 ) {
+  if (!request.headers.authorization) {
+    next();
+    return;
+  }
+
   const token = request.headers.authorization.substring(7);
   const decoded = jwt.decode(token);
   console.log(token);
