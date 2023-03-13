@@ -34,7 +34,7 @@ class App {
   }
 
   private initializeMiddlewares() {
-    this.app.use(express.json());
+    this.app.use(express.json({ limit: '50mb' }));
     this.app.use(helmet());
     this.app.use(
       cors({
