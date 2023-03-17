@@ -60,8 +60,11 @@ export default class ReportService {
   public getAll = async () => this.report.find();
 
   public create = async (newReport: ReportInterface, user: any) => {
-    const reportDocument = newReport;
+    const reportDocument = newReport;    
     reportDocument.oid = user.oid;
+    if(reportDocument.anonymous === true){
+        reportDocument.oid = 'anonieme melding';
+    }
 
     const createdReport: ReportInterface = await this.report.create(
       reportDocument,
