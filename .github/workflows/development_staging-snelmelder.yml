@@ -6,7 +6,7 @@ name: Build and deploy Node.js app to Azure Web App - staging-snelmelder
 on:
   push:
     branches:
-      - development
+      - staging
   workflow_dispatch:
 
 jobs:
