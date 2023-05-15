@@ -14,8 +14,7 @@ export default async function userMiddleware(
 
   const token = request.headers.authorization.substring(7);
   const decoded = jwt.decode(token);
-  //console.log(token);
-  //console.log(decoded);
+
   response.locals.user = decoded;
   next();
 }
