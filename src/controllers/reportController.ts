@@ -29,11 +29,8 @@ class ReportController implements Controller {
   }
 
   private createReport = async (request: Request, response: Response) => {
-    console.log(response);
-
     try {
       const newReport: ReportInterface = request.body;
-
       if (newReport) {
         console.log('New report...');
         try {
