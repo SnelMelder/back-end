@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import App from './app';
 import UserController from './controllers/userController';
 import DefaultController from './controllers/defaultController';

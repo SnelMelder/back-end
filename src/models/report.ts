@@ -1,32 +1,22 @@
 import { model, Schema } from 'mongoose';
 import ReportInterface from '../interfaces/report.interface';
-import ReportStatus from '../helpers/enums/reportStatus.enum';
 import InjurySite from '../helpers/enums/injurySite.enum';
 import IncidentType from '../helpers/enums/incidentType.enum';
-import InjuryType from '../helpers/enums/injuryType.enum';
+import DamageType from '../helpers/enums/damageType.enum';
 
 const reportSchema = new Schema<ReportInterface>(
   {
-    user: {
-      type: Schema.Types.ObjectId,
+    oid: {
+      type: String,
       ref: 'User',
-      required: true,
+      required: false,
     },
     anonymous: {
       type: Boolean,
       required: true,
     },
-    contractorAdditionalInfo: { type: String },
     dateTime: {
       type: Date,
-      required: true,
-    },
-    environmentalDamage: {
-      type: Boolean,
-      required: true,
-    },
-    materialDamage: {
-      type: Boolean,
       required: true,
     },
     personInvolved: { type: String },
@@ -37,11 +27,6 @@ const reportSchema = new Schema<ReportInterface>(
     },
     additionalInformation: { type: String },
     witness: { type: String },
-    status: {
-      type: String,
-      enum: ReportStatus,
-      default: ReportStatus.send,
-    },
     injurySite: {
       type: [String],
       enum: InjurySite,
@@ -52,13 +37,16 @@ const reportSchema = new Schema<ReportInterface>(
       enum: IncidentType,
       required: true,
     },
-    injuryType: {
-      type: String,
-      enum: InjuryType,
+    damageTypes: {
+      type: [String],
+      enum: DamageType,
       required: true,
     },
     incidentTypeAdditionalInfo: {
       type: String,
+    },
+    pictureList: {
+      type: [String],
     },
   },
   {

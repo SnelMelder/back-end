@@ -2,10 +2,8 @@ import { Schema } from 'mongoose';
 
 interface Location {
   _id?: Schema.Types.ObjectId;
-  contractor: Schema.Types.ObjectId;
+  contractors: string[];
   name: string;
-  longitude: number;
-  latitude: number;
   active: boolean;
 }
 

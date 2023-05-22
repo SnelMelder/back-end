@@ -1,14 +1,17 @@
-import * as express from 'express';
 import { connect } from 'mongoose';
-
 import helmet from 'helmet';
 import Controller from './interfaces/controller.interface';
 import errorMiddleware from './middlewares/error.middleware';
+import userMiddleware from './middlewares/user.middleware';
 
+require('dotenv').config();
 const cors = require('cors');
+const express = require('express');
+
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(' ');
 
 class App {
-  public app: express.Application;
+  public app = express();
 
   constructor(controllers: Controller[]) {
     this.app = express();
@@ -22,7 +25,7 @@ class App {
 
   public listen() {
     this.app.listen(process.env.PORT || 5000, () => {
-      console.log(`App listening on the port ${process.env.PORT}`);
+      console.log(`App listening on port ${process.env.PORT || 5000}`);
     });
   }
 
@@ -31,11 +34,14 @@ class App {
   }
 
   private initializeMiddlewares() {
-    this.app.use(express.json());
+    this.app.use(express.json({ limit: '50mb' }));
     this.app.use(helmet());
-    this.app.use(cors({
-      origin: ['http://localhost:5000'],
-    }));
+    this.app.use(
+      cors({
+        origin: allowedOrigins,
+      }),
+    );
+    this.app.use(userMiddleware);
   }
 
   private initializeControllers(controllers: Controller[]) {
@@ -48,8 +54,8 @@ class App {
     this.app.use(errorMiddleware);
   }
 
-  private static async connectDatabase() {
-    await connect(process.env.MONGODB_CONNECTION_STRING);
+  public static async connectDatabase() {
+    return connect(process.env.MONGODB_CONNECTION_STRING);
   }
 }
 
