@@ -12,6 +12,7 @@ import UserService from './userService';
 require('dotenv').config();
 
 const collectorAddress = process.env.COLLECTOR_EMAIL_ADDRESS;
+const testerOID = process.env.TESTER_OBJECT_ID;
 
 export default class ReportService {
   private report = ReportModel;
@@ -60,10 +61,14 @@ export default class ReportService {
   public getAll = async () => this.report.find();
 
   public create = async (newReport: ReportInterface, user: any) => {
-    const reportDocument = newReport;    
+    if (this.isTestUser(user)) {
+      return newReport;
+    }
+
+    const reportDocument = newReport;
     reportDocument.oid = user.oid;
-    if(reportDocument.anonymous === true){
-        reportDocument.oid = 'anonieme melding';
+    if (reportDocument.anonymous === true) {
+      reportDocument.oid = 'anonieme melding';
     }
 
     const createdReport: ReportInterface = await this.report.create(
@@ -74,6 +79,8 @@ export default class ReportService {
 
     return createdReport;
   };
+
+  private isTestUser = (user: any) => user.oid === testerOID;
 
   public update = async (updateReport: ReportInterface) =>
     this.report.findOneAndUpdate({ _id: updateReport._id }, updateReport);
