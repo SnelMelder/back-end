@@ -94,6 +94,9 @@ export default class ReportService {
   private notifyCollectorAndContractors = async (report: ReportInterface) => {
     const emailMessage = await this.createEmailMessageFromReport(report);
     this.mailService.sendAsync(emailMessage);
+    console.log(
+      `Report ${report._id}: Sent 'new report' e-mail to collectors and contractors`,
+    );
   };
 
   private createEmailMessageFromReport = async (
