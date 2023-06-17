@@ -6,6 +6,9 @@ const checkJwt = auth({
 });
 
 const availableScopes = {
+  groups:{
+      read: 'groups:read'
+  },
   users: {
     read: 'users:read',
   },

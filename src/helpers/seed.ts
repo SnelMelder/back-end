@@ -53,7 +53,7 @@ async function createReport(
 async function seedAll(seedAmount: number) {
   for (let i = 0; i < seedAmount; i++) {
     const seededLocation = await location.create(await createLocation());
-    console.log('@@@ Location' + seededLocation);
+    // console.log('@@@ Location' + seededLocation);
 
     await report.create(await createReport(seededLocation));
   }

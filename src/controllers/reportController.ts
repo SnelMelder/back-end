@@ -29,7 +29,7 @@ class ReportController implements Controller {
   }
 
   private createReport = async (request: Request, response: Response) => {
-    console.log(response);
+    // console.log(response);
 
     try {
       const newReport: ReportInterface = request.body;

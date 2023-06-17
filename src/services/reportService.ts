@@ -231,7 +231,7 @@ function formatDateTime(date: Date) {
 }
 
 function parseImagesToHtml(base64Images: string[]) {
-  console.log(base64Images);
+  // console.log(base64Images);
   return base64Images
     .map((base64Image) => parseImageToHtml(base64Image))
     .join('');
