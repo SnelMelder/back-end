@@ -5,6 +5,8 @@ import getAccessToken from './authService';
 
 require('dotenv').config();
 
+
+
 const contractorsGroupId = process.env.CONTRACTORS_SECURITY_GROUP_ID;
 
 export default class UserService {
@@ -33,6 +35,21 @@ export default class UserService {
     );
 
     return selectedContractors;
+  }
+
+  public async getSignedInUserInfo(oid: String){
+    const url = `https://graph.microsoft.com/v1.0/users/${oid}`
+    const config = {
+      headers: {
+        Authorization: `Bearer ${await getAccessToken()}`,
+      },
+    };
+    const response = await axios.get(url,config);
+
+    const username = response.data.displayName;
+
+    return username;  
+
   }
 
   private toModel(msGraphUsers: MicrosoftGraph.User[]): UserInterface[] {
