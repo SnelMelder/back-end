@@ -9,6 +9,7 @@ import LocationService from './locationService';
 import DamageType from '../helpers/enums/damageType.enum';
 import UserService from './userService';
 
+
 require('dotenv').config();
 
 const collectorAddress = process.env.COLLECTOR_EMAIL_ADDRESS;
@@ -70,6 +71,7 @@ export default class ReportService {
     if (reportDocument.anonymous === true) {
       reportDocument.oid = 'anonieme melding';
     }
+    
 
     const createdReport: ReportInterface = await this.report.create(
       reportDocument,
@@ -109,7 +111,14 @@ export default class ReportService {
     const contractors = await this.userService.getContractorsByIds(
       project.contractors,
     );
-
+    
+    let username = 'test'
+    try {
+      username = await this.userService.getSignedInUserInfo(report.oid);
+    } catch (error) {
+      username = 'anonieme gebruiker'
+    }
+    
     const projectName = project.name;
     const incidentTypesString = formatIncidentTypeArray(report.incidentType);
     const damageTypesString = formatDamageTypeArray(report.damageTypes);
@@ -118,12 +127,15 @@ export default class ReportService {
 
     const imagesHTML = parseImagesToHtml(report.pictureList);
 
+   
+
     return {
       subject: 'Nieuwe melding via SnelMelder',
       body: {
         contentType: 'html',
         content: `
         <h1>Nieuwe melding</h1>
+        <p><b>Melding gemaakt door:</b> ${username}</p>
         <p><b>Type incident:</b> ${incidentTypesString}</p>
         <p><b>Beschrijving overig type incident (indien van toepassing):</b> ${report.incidentTypeAdditionalInfo}</p>
         <p><b>Locatie:</b> ${projectName} </p>
@@ -158,6 +170,8 @@ export default class ReportService {
     };
   };
 }
+
+
 
 function formatIncidentTypeArray(incidentTypes: IncidentType[]) {
   return incidentTypes.map((type) => formatIncidentType(type)).join(', ');
