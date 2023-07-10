@@ -8,7 +8,7 @@ import IncidentType from '../helpers/enums/incidentType.enum';
 import LocationService from './locationService';
 import DamageType from '../helpers/enums/damageType.enum';
 import UserService from './userService';
-import { response } from 'express';
+
 
 require('dotenv').config();
 
